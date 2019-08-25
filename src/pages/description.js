@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Text, View, TouchableOpacity, AsyncStorage, StyleSheet, Image } from 'react-native';
 import { Component } from 'react';
-import { thisTypeAnnotation } from '@babel/types';
+
 
 
 
@@ -10,7 +10,8 @@ class Description extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            params: []
+            params: [],
+            prodS: []
         }
     }
 
@@ -25,29 +26,27 @@ class Description extends Component {
     }
 
     saveData = async () => {
-        let prodS = await this.state.params;
+        const prodS =  this.state.params;
+        const valor = 'prodS';
+        const newArray = [];
+        const itemCart = await AsyncStorage.getItem('prodS');
+
+        if(itemCart != null){
+        newArray.push(JSON.parse(itemCart))
+        }
+         newArray.push(JSON.stringify(prodS))
 
         try {
-            await AsyncStorage.setItem('prodS', JSON.stringify(prodS));
+            await AsyncStorage.setItem(valor, newArray);
+            console.log(await AsyncStorage.getItem('prodS'))
         } catch (error) {
             alert(error);
-
         }
         alert(JSON.stringify(prodS));
+        console.log("new Array" + newArray);
     }
 
 
-    displayConfirm = async () => {
-        try {
-            let prodInfo = await AsyncStorage.getItem('prodS');
-            let parse = await JSON.parse(prodInfo);
-
-            alert('Adicionado com Sucesso' + JSON.stringify(parse));
-        }
-        catch (error) {
-            alert(error);
-        }
-    }
     render() {
 
         return (
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
 
     containerButton: {
         width: "100%",
-        height:"2%",
+        height:"50%",
         marginTop: 30,
         backgroundColor:"white"
     },

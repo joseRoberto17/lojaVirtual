@@ -7,7 +7,6 @@ import {
   Image
 } from 'react-native';
 import React, { Component } from 'react';
-import logo from '../assets/logo.png';
 import { ProductService } from '../services/products'
 
 class Main extends Component {
@@ -26,7 +25,6 @@ class Main extends Component {
     const service = new ProductService();
     const prod = await service.getProducts();  
     this.setState({ prod });
-    alert(this.state.prod.length); 
   }
 
   goDescription = (item) => {
@@ -36,7 +34,6 @@ class Main extends Component {
   renderItem = ({item}) => (
     <View style={styles.containerProduct}>
               <Text style={styles.productTitle}> {item.name}</Text>
-              <Text style={styles.productTitle}> {item.id}</Text>
               <View style={styles.imgContainer} >
               <Image style={styles.avatar} source={item.img} />
               </View>
@@ -51,16 +48,6 @@ class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
-
-      <View style={styles.containerTitle}>
-      <Image style={styles.logo} source={logo}/>
-        <Text style={styles.title}> Loja Virtual  </Text>
-        <TouchableOpacity onPress={() => {
-          this.props.navigation.navigate('Cart');
-        }}> 
-        <Text>Carrinho </Text>
-        </TouchableOpacity>
-      </View>
 
         <View style={styles.containerList}>
         <FlatList
@@ -82,25 +69,14 @@ const styles = StyleSheet.create({
       backgroundColor: "#fafafa"
     },
 
-    containerTitle:{
-      flexDirection: "row",
-      justifyContent: "center",
-      alignItems:"center",
-      backgroundColor: "#03A9F4"
-    },
-
-    title:{
-      fontSize: 25,
-      color: "#fafafa"
-    },
-
     containerList:{
       flex: 1,
-      padding: 15
+      padding: 15,
+      backgroundColor: "white"
     },
 
     containerProduct:{
-
+      backgroundColor: "#03A9F4",
       borderWidth:2,
       borderColor: "#fafafa",
       borderRadius:12,
@@ -109,9 +85,10 @@ const styles = StyleSheet.create({
     },
 
     productTitle:{
-      fontSize: 20,
+      fontSize: 30,
       fontWeight: 'bold',
-      color: '#338'
+      color: 'white',
+      textAlign:"center"
     },
 
     productButton:{
@@ -119,22 +96,22 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       borderWidth: 2,
       borderColor:"#03A9F4",
-      backgroundColor: 'transparent',
+      backgroundColor: "#1ac6ff",
       justifyContent: "center",
       alignItems: "center", 
-      marginTop: 10
+      marginTop: 1
     },
 
     buttonTitle:{
-      fontSize: 20,
+      fontSize: 25,
       fontWeight: 'bold',
-      color: '#338'
+      color: "white"
     },
 
     imgContainer:{
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor:"#999"
+      backgroundColor:"white"
     },
     avatar:{
         height:250,

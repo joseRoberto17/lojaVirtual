@@ -6,64 +6,83 @@ import {
     TouchableOpacity,
     Image,
     AsyncStorage
-  } from 'react-native';
-  import React, { Component } from 'react';
+} from 'react-native';
+import React, { Component } from 'react';
 
-class Cart extends Component{
-    constructor(props){
+class Cart extends Component {
+    constructor(props) {
         super(props);
         this.state = {
-            itemCart: []
+            itemC: [],
+            ite: [
+
+                {
+                    id: 1,
+                    name: 'teste',
+                },
+                {
+                    id: 2,
+                    name: 'lala'
+                }
+
+            ]
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.loadItem();
     }
-    
-    loadItem  = async() => {
-        try{
-            const itemCart = await AsyncStorage.getItem('prodS');
-            
-            if(itemCart != null){
-                this.setState({itemCart});
+    // 
+    loadItem = async () => {
+        try {
+            const itemC = await AsyncStorage.getItem('prodS');
+
+            if (itemC != null) {
+                this.setState({ itemC });
             }
-            alert("N " + this.state.itemCart.length);
+
+            //    console.log(itemCart.filter(i => 
+            //        i.name === 'Banana'))
+
+            console.log("taman " + JSON.parse(itemC));
+            console.log("Itens" + itemC)
+            console.log("Test " + this.state.itemC);
         }
-        catch(error){
+        catch (error) {
             alert(error);
         }
     }
 
-    renderItem = ({item}) => (
+    renderItem = ({ item }) => (
         <View style={styles.containerProduct}>
-                  <Text> {item.name} </Text>
-                  <View>
-                  <Image style={styles.avatar} source={item.img} />
-                  </View>
-            <TouchableOpacity onPress={() =>{}}>
-                 <Text style={styles.buttonTitle}> Comprar </Text>
+            <Text> {this.state.itemC.length} </Text>
+            <Text> {item.length}</Text>
+            <Text style={styles.productTitle}> {item.name}</Text>
+
+            <TouchableOpacity style={styles.productButton} onPress={() => {
+            }}>
+                <Text style={styles.buttonTitle}> Comprar </Text>
             </TouchableOpacity>
         </View>
-      );
+    );
 
-    render(){
-        return(
-            <View style={styles.containerList}> 
-            { this.state.itemCart.length === 0 
-                ? <Text style={styles.empty}> Sem Itens no Carrinho </Text>
-            :(
-        
-                <View>
-                <FlatList
-                data={this.state.itemCart}
-                keyExtractor={(x,i) => i++}
-                renderItem={this.renderItem}
-                />
-                </View>
+    render() {
+        return (
+            <View style={styles.containerList}>
+                {this.state.itemC.length === 0
+                    ? <Text style={styles.empty}> Sem Itens no Carrinho </Text>
+                    : (
 
-            )
-            } 
+                        <View>
+                            <FlatList
+                                data={this.state.itemC}
+                                renderItem={this.renderItem}
+                                keyExtractor={(item) => item.id}
+                            />
+                        </View>
+
+                    )
+                }
             </View>
         );
     }
@@ -71,23 +90,22 @@ class Cart extends Component{
 }
 
 const styles = StyleSheet.create({
-    containerList:{
-        flex: 1,
-        padding: 15
-      },
 
-      containerProduct:{
+    containerProduct: {
 
-        borderWidth:2,
+        borderWidth: 2,
         borderColor: "#fafafa",
-        borderRadius:12,
+        borderRadius: 12,
         padding: 2,
         marginBottom: 20
-      },
-    avatar:{
-        height:250,
-        width:250,
+    },
+    avatar: {
+        height: 250,
+        width: 250,
         padding: 15,
+    },
+    productTitle: {
+        color: "#338"
     }
 });
 
