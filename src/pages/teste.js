@@ -91,6 +91,7 @@ class Teste extends React.Component {
         const price = this.state.totalPrice;
         this.props.navigation.navigate('Buy', parseFloat(price));
         console.log('asa' + parseFloat(price));
+        
     }
 
     render() {
