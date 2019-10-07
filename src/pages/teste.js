@@ -90,7 +90,7 @@ class Teste extends React.Component {
     goBuy = () => {
         const price = this.state.totalPrice;
         this.props.navigation.navigate('Buy', parseFloat(price));
-        console.log('asa' + parseFloat(price))
+        console.log('asa' + parseFloat(price));
     }
 
     render() {
